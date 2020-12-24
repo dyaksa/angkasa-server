@@ -11,5 +11,17 @@ module.exports = {
                 }
             })
         })
+    },
+
+    udpateById: (id,data) => {
+        return new Promise((resolve,reject) => {
+            db.query(`UPDATE users SET ${data} WHERE id = ${id}`,(err,result) => {
+                if(!err){
+                    resolve(result);
+                }else{
+                    reject(new Error(err));
+                }
+            })
+        })
     }
 }

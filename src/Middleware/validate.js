@@ -10,7 +10,14 @@ const registerValidationRules = () => {
       .withMessage("email address is not correctly")
       .not()
       .isEmpty()
-      .withMessage("email cannot be empty"),
+      .withMessage("email cannot be empty")
+      .custom((value) => {
+        return authModel.findByEmail(value).then((user) => {
+          if(user.length >= 1){
+            return Promise.reject('email already in use')
+          }
+        })
+      }),
     body("password")
       .isLength({ min: 5 })
       .withMessage("password must be at least 5 characters")
@@ -28,42 +35,33 @@ const registerValidationRules = () => {
 
 const updateProfileValidationRules = () => {
   return [
-    body("email").isEmail().withMessage("email address is not correctly"),
-    //   .not()
-    //   .isEmpty()
-    //   .withMessage("email canot be empty")
-    //   .custom((value) => {
-    //     return authModel.findByEmail(value).then((user) => {
-    //       if (user.length >= 1) {
-    //         return Promise.reject("email already in use");
-    //       }
-    //     });
-    //   })
+    body("email").isEmail().withMessage("email address is not correctly")
+      .custom((value) => {
+        return authModel.findByEmail(value).then((user) => {
+          if (user.length >= 1) {
+            return Promise.reject("email already in use");
+          }
+        });
+      }),
     body("username")
-      //   .not()
-      //   .isEmpty()
-      //   .withMessage("username canot be empty")
       .isAlphanumeric()
-      .withMessage("username must be alpha numeric"),
-    //   .custom((value) => {
-    //     return authModel.findByUsername(value).then((user) => {
-    //       if (user.length >= 1) {
-    //         return Promise.reject("username already in use");
-    //       }
-    //     });
-    //   })
+      .withMessage("username must be alpha numeric")
+      .custom((value) => {
+        return authModel.findByUsername(value).then((user) => {
+          if (user.length >= 1) {
+            return Promise.reject("username already in use");
+          }
+        });
+      }),
     body("phone")
-      //   .not()
-      //   .isEmpty()
-      //   .withMessage("phone cannot be empty")
       .isMobilePhone()
       .withMessage("phone is not valid"),
-    // body("city").not().isEmpty().withMessage("city cannot be empty"),
-    // body("address").not().isEmpty().withMessage("address cannot be empty"),
+    body("city").not().isEmpty().withMessage("city cannot be empty"),
+    body("address").not().isEmpty().withMessage("address cannot be empty"),
     body("post_code")
-      //   .not()
-      //   .isEmpty()
-      //   .withMessage("postal code cannot be empty")
+        .not()
+        .isEmpty()
+        .withMessage("postal code cannot be empty")
       .isPostalCode(["ID"])
       .withMessage("postal code is not valid"),
   ];
