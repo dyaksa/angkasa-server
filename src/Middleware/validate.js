@@ -1,6 +1,7 @@
-const { body, validationResult } = require("express-validator");
-const authModel = require("../Users/Models/authModel");
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
+import { body, validationResult } from "express-validator";
+import _ from "lodash";
+const authModel = require("../models/authModel");
 
 const registerValidationRules = () => {
   return [
@@ -110,8 +111,10 @@ const loginValidationRules = () => {
       .custom((value, { req }) => {
         const { username } = req.body;
         return authModel.findByUsername(username).then((user) => {
-          if (user && !bcrypt.compareSync(value, user[0].password)) {
-            return Promise.reject("password does not match");
+          if(!_.isEmpty(user)){
+            if(!bcrypt.compareSync(value,user[0].password)){
+              return Promise.reject("password does not match");
+            }
           }
         });
       }),
@@ -163,6 +166,7 @@ const validate = (req, res, next) => {
 
   return res.status(403).send({
     success: false,
+    status: 403,
     errors: extractedErrors,
     accessToken: null,
   });

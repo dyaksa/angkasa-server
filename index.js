@@ -1,35 +1,32 @@
-const bodyParser = require("body-parser");
-const express = require("express");
+import bodyParser from "body-parser";
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import helmet from "helmet";
+import db from "./src/Config/db";
+
+//routes
+import authRoute from "./src/routes/auth";
+
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-
-const db = require("./src/Config/db");
-const cors = require("cors");
-require("dotenv").config();
-
-// Routes
-const authRoute = require("./src/Users/Routes/authRoutes");
-const userRoute = require("./src/Users/Routes/userRoutes");
-const bookingRoute = require("./src/Users/Routes/bookingRoutes");
-const cityRoute = require("./src/Users/Routes/cityRoutes");
-const countryRoute = require("./src/Users/Routes/countryRoutes");
-const airlinesRoute = require("./src/Users/Routes/airlinesRoutes");
-const flightRoute = require("./src/Users/Routes/flightRoutes");
+dotenv.config();
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(helmet());
 
 // Router
 app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/users",userRoute);
-app.use("/api/v1/users/booking", bookingRoute);
-app.use("/api/v1/users/city", cityRoute);
-app.use("/api/v1/users/country", countryRoute);
-app.use("/api/v1/users/airlines", airlinesRoute);
-app.use("/api/v1/users/flight", flightRoute);
+// app.use("/api/v1/users",userRoute);
+// app.use("/api/v1/users/booking", bookingRoute);
+// app.use("/api/v1/users/city", cityRoute);
+// app.use("/api/v1/users/country", countryRoute);
+// app.use("/api/v1/users/airlines", airlinesRoute);
+// app.use("/api/v1/users/flight", flightRoute);
 
 // Index
 app.get("/api/v1", (req, res) => {
