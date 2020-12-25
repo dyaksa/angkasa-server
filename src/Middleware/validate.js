@@ -33,6 +33,12 @@ const registerValidationRules = () => {
   ];
 };
 
+const preUploadValidation = () => {
+  return [
+    body("photo").notEmpty().withMessage("photo must be filled")
+  ]
+}
+
 const updateProfileValidationRules = () => {
   return [
     body("email").isEmail().withMessage("email address is not correctly")
@@ -95,7 +101,9 @@ const resetPasswordValidationRules = () => {
 
 const loginValidationRules = () => {
   return [
-    body("username").custom((value) => {
+    body("username")
+    .notEmpty().withMessage("username cannot be empty")
+    .custom((value) => {
       return authModel.findByUsername(value).then((user) => {
         if (user.length !== 1) {
           return Promise.reject("username not exists");
@@ -179,4 +187,5 @@ module.exports = {
   forgotCheckEmail,
   resetPasswordValidationRules,
   updateProfileValidationRules,
+  preUploadValidation
 };

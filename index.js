@@ -8,6 +8,7 @@ import helmet from "helmet";
 //routes
 import authRoute from "./src/routes/auth";
 import userRoute from "./src/routes/user";
+import uploadRoute from "./src/routes/upload";
 
 const app = express();
 const server = require("http").createServer(app);
@@ -23,6 +24,7 @@ app.use(helmet());
 // Router
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/user",userRoute);
+app.use("/api/v1/upload",uploadRoute);
 // app.use("/api/v1/users/booking", bookingRoute);
 // app.use("/api/v1/users/city", cityRoute);
 // app.use("/api/v1/users/country", countryRoute);
@@ -31,7 +33,10 @@ app.use("/api/v1/user",userRoute);
 
 // Index
 app.get("/api/v1", (req, res) => {
-  res.send("Hello Ankasa Ticketing !");
+  res.status(200).send({
+    success: true,
+    message: 'welcome ankasa tiket api'
+  });
 });
 
 // Middleware Photos
