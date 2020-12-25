@@ -1,7 +1,7 @@
-import express from "express";
-import {postUploadImage} from "../controllers/uploadController";
-import { verifyToken } from "../Middleware/verifyAuth";
-import { preUploadImage } from "../Middleware/upload";
+const express = require("express");
+const {postUploadImage} = require("../controllers/uploadController");
+const { verifyToken } = require("../Middleware/verifyAuth");
+const { preUploadImage } = require("../Middleware/upload");
 const route = express.Router();
 
 route.post("/image",

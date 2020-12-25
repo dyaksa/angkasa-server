@@ -1,5 +1,5 @@
-import multer from "multer";
-import { imageFilter } from "../Helper/imageFilter";
+const multer = require("multer");
+const { imageFilter } = require("../Helper/imageFilter");
 
 const storage = multer.diskStorage({
     // destination: (req, file, cb) => {

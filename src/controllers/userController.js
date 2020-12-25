@@ -1,5 +1,5 @@
-import { findUserById } from "../models/userModel";
-import _ from "lodash";
+const { findUserById } = require("../models/userModel");
+const _ = require("lodash");
 
 module.exports = {
     getUserLogin: async (req,res) => {

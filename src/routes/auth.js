@@ -1,13 +1,13 @@
-import express from "express";
-import { register, login, forgot, reset } from "../controllers/authController";
-import {registerValidationRules, 
+const express = require("express");
+const { register, login, forgot, reset } = require("../controllers/authController");
+const {registerValidationRules, 
     validate, 
     emailExists, 
     usernameExists, 
     loginValidationRules,
     forgotCheckEmail, 
     resetPasswordValidationRules
-} from "../Middleware/validate"
+} = require("../Middleware/validate");
 const route = express.Router();
 
 route.post("/register",

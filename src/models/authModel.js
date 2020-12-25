@@ -1,5 +1,5 @@
-import db from "../Config/db";
-import bcrypt from "bcrypt";
+const db = require("../Config/db");
+const bcrypt = require("bcrypt");
 
 module.exports = {
     postRegister: ( data ) => {
