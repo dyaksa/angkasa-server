@@ -1,4 +1,4 @@
-import db from "../Config/db";
+const db = require("../Config/db");
 
 module.exports = {
     findUserById: (id) => {

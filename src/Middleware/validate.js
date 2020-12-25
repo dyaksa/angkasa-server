@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt";
-import { body, validationResult } from "express-validator";
-import _ from "lodash";
+const bcrypt = require("bcrypt");
+const { body, validationResult } = require("express-validator");
+const _ = require("lodash");
 const authModel = require("../models/authModel");
 
 const registerValidationRules = () => {

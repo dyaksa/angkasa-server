@@ -1,12 +1,12 @@
-import { postRegister, findByUsername, findByEmail, findAndUpateById, findById} from "../models/authModel";
-import jwt from "jsonwebtoken";
-import _ from "lodash";
+const { postRegister, findByUsername, findByEmail, findAndUpateById, findById} = require("../models/authModel");
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 
 module.exports = {
     register: async (req,res) => {
         try {
            const data = {...req.body, role: 7};
-           const response = await postRegister(data);
+           const response = postRegister(data);
            if(response.affectedRows){
             return res.status(201).send({
                 success: true,

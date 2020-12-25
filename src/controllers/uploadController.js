@@ -1,4 +1,4 @@
-import { uploadImageById } from "../models/uploadModel";
+const { uploadImageById } = require("../models/uploadModel");
 const cloudinary = require("../Helper/cloudinary");
 
 module.exports = {

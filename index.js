@@ -1,14 +1,14 @@
-import bodyParser from "body-parser";
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import helmet from "helmet";
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv")
+const helmet = require("helmet");
 // import db from "./src/Config/db";
 
 //routes
-import authRoute from "./src/routes/auth";
-import userRoute from "./src/routes/user";
-import uploadRoute from "./src/routes/upload";
+const authRoute = require("./src/routes/auth");
+const userRoute = require("./src/routes/user");
+const uploadRoute = require("./src/routes/upload");
 
 const app = express();
 const server = require("http").createServer(app);
